@@ -61,11 +61,10 @@ For periods impacted by travel restrictions, it may be better to rely on the pro
 
 ## Data quality issues
 ### Data is missing for the following period(s):
-2021-02-28 06:00 to 2021-03-01 02:00
-2021-05-28 09:00 to 12:00 and 19:00 to 23:00
+TBA
 
 ### Data quality is lower than usual for the following period(s):
-2021-05-27 12:00 to 2021-05-28 08:00
+TBA
  
 ### Note
 Over time, we will refine our methodology, which may result in adjustments to population estimates. We will communicate changes when they take effect.
