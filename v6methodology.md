@@ -8,24 +8,28 @@ The hourly population estimates provide a breakdown of international visitors, d
 - International visitors are people from outside New Zealand, who are staying in the country for less than 90 days.
 - Domestic visitors are people outside their home region in New Zealand.
 - Local residents are people in their home region.
-- Home regions are currently defined based on Regional Tourism Organisations (RTOs). 
+- Home regions are currently defined based on Regional Tourism Organisation (RTO) areas. 
 
 ## Methodology
  
-- Data Ventures receives device counts from Spark and Vodafone (the data providers). 
-    - The data providers use methods supplied by Data Ventures to process their cellphone location data into aggregated device counts.
+- Data Ventures receives device location estimates from Spark and Vodafone (the data providers). 
+    - Spark supplies input data in the form of hourly device counts by SA2, split by segment
+    - Vodafone supplies input data as anonymised cellphone locations at a cell-tower level
+    - Data Ventures processes the Vodafone input data to create an aggregated device count dataset in the same form as the Spark data
+    - Spark uses the methods defined by Data Ventures to process their cellphone location data into aggregated device counts
+- For both input datasets, the aggregated device counts are created as follows:
     - Devices are assigned to an SA2 area based on the signal strength to nearby cell towers.
     - Non-cellphone devices (e.g., Internet of Things devices) are excluded from the device counts.
-- If a device is not observed for a given hour, the data providers impute the location based on the device location in the following or preceding hours. At nighttime, a lot more devices get imputed as less people are using their phones or have their phones on.
-- The data providers classify devices as international, domestic, or local using a combination of SIM card and location information.
-    - If the device has an international SIM card, it is classed as an international device.
-    - To separate domestic from local devices, a home region (RTO area) is assigned to each device with an NZ SIM card. The home region is based on the most common nighttime location over the previous 14 days.
-    - Domestic devices are those outside their home RTO area.
-    - Local devices are those in their home RTO area.
-- We combine the counts from the two providers.
+    - If a device is not observed for a given hour, its location is imputed based on the device location in the following or preceding hours. At nighttime, a lot more devices get imputed as fewer people are using their phones or have their phones on.
+    - The data providers classify devices as international, domestic, or local using a combination of SIM card and location information.
+        - If the device has an international SIM card, it is classed as an international device.
+        - To separate domestic from local devices, a home region (RTO area) is assigned to each device with an NZ SIM card. The home region is based on the most common nighttime location over the previous 14 days.
+        - Domestic devices are those outside their home RTO area.
+        - Local devices are those in their home RTO area.
+- Data Ventures combines the device counts from the two providers.
 - We then convert the device counts to population counts by applying a weight. The weighting process accounts for people without phones and people with several phones. 
     - We use supplementary datasets to inform the weights, including data about how many people are entering and leaving the country.
-- To ensure privacy, we randomly round numbers to base three and suppress counts below ten.
+- To protect confidentiality, we randomly round population counts to base three.
 
 ## Version information
 Our current version is 6.0.0, which was implemented in late April 2021.
@@ -57,14 +61,28 @@ This version includes the following enhancements:
 | The distribution of international visitors is determined by devices that contain an international SIM card. This means residents and migrants with international SIM cards will contribute to the distribution of international visitors. As a result,a higher proportion of visitors appear in residential areas and a lower proportion of visitors are located in the correct tourist locations.    | During normal travel periods, this has only minor impacts on the data. However, during the pandemic the proportion of residents and migrants to visitors is substantially higher. This means more bias is introduced to device counts.
 For periods impacted by travel restrictions, it may be better to rely on the proportion change in international visitors rather than relying solely on a single visitor count.  | 
 | Repatriated New Zealanders are likely the majority of international visitors after 20th March 2020 - especially until 19 April, when the Trans-Tasman bubble opened.  | International visitor numbers during COVID-impacted periods may not accurately reflect international tourism. |
-
+| The most recent 90 days of international visitor numbers are provisional and are subject to change as we get more information. | The most recent 90 days of international visitor numbers should be interpreted as early indicative estimates. |
 
 ## Data quality issues
-### Data is missing for the following period(s):
-TBA
+### Data is missing for the following periods:
 
-### Data quality is lower than usual for the following period(s):
-TBA
+- 2021-02-28 06:00:00 to 2021-03-01 02:00:00
+- 2021-10-04 08:00:00 to 2021-10-06 06:00:00
+- 2021-11-29 00:00:00 to 2021-12-14 23:00:00
+
+### Data quality is lower than usual for the following periods:
+
+- 2020-02-04 00:00:00 to 2020-02-04 23:00:00
+- 2020-09-14 06:00:00 to 2020-09-14 07:00:00
+- 2021-05-27 13:00:00 to 2021-05-28 23:00:00
+- 2021-06-01 22:00:00 to 2021-06-09 23:00:00
+- 2021-07-17 17:00:00 to 2021-07-18 23:00:00
+- 2021-07-21 09:00:00 to 2021-07-22 10:00:00
+- 2021-07-28 08:00:00 to 2021-07-29 20:00:00
+- 2021-07-31 00:00:00 to 2021-08-05 23:00:00
+- 2021-09-26 02:00:00 to 2021-09-27 15:00:00
+- 2021-11-04 06:00:00 to 2021-11-05 16:00:00
+- 2022-03-14 15:00:00 to 2022-03-15 10:00:00
  
 ### Note
 Over time, we will refine our methodology, which may result in adjustments to population estimates. We will communicate changes when they take effect.
